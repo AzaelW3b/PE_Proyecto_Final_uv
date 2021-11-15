@@ -13,15 +13,16 @@ struct info_alumnos
     char carrera[20];
     char grupo[15];
     float calificacion;
-
 };
 
-struct info_alumnos alumnos[CANTIDAD]={};
+//arreglo de los alumnos
+struct info_alumnos alumnos[CANTIDAD] = {};
 bool MostrarMenu(bool agregar_alumnos);
 void alta_alumnos();
+void imprimir_reporte();
 int main(int argc, char const *argv[])
 {
-    
+
     bool mostrar_menu = true;
     //función que inicia el programa
     MostrarMenu(mostrar_menu);
@@ -64,7 +65,7 @@ bool MostrarMenu(bool mostrar_menu)
 
             break;
         case 7:
-
+            imprimir_reporte();
             break;
         case 8:
             //termina la ejecución del programa
@@ -83,20 +84,48 @@ void alta_alumnos()
     for (i = 0; i < CANTIDAD; i++)
     {
         printf("Ingresa la matricula del alumno %d\n", (i + 1));
-        scanf(" %[^\n]",alumnos[i].matricula);
+        scanf(" %[^\n]", alumnos[i].matricula);
         printf("Ingresa el nombre del alumno %d\n", (i + 1));
-        scanf(" %[^\n]",alumnos[i].nombre);
+        scanf(" %[^\n]", alumnos[i].nombre);
         printf("Ingresa el apellido paterno del alumno %d\n", (i + 1));
-        scanf(" %[^\n]",alumnos[i].apellido_paterno);
+        scanf(" %[^\n]", alumnos[i].apellido_paterno);
         printf("Ingresa el apellido materno del alumno %d\n", (i + 1));
-        scanf(" %[^\n]",alumnos[i].apellido_materno);
+        scanf(" %[^\n]", alumnos[i].apellido_materno);
         printf("Ingresa la edad del alumno %d\n", (i + 1));
-        scanf("%d",&alumnos[i].edad);
+        scanf("%d", &alumnos[i].edad);
         printf("Ingresa la carrera del alumno %d\n", (i + 1));
-        scanf(" %[^\n]",alumnos[i].carrera);
+        scanf(" %[^\n]", alumnos[i].carrera);
         printf("Ingresa el grupo del alumno %d\n", (i + 1));
-        scanf(" %[^\n]",alumnos[i].grupo);
+        scanf(" %[^\n]", alumnos[i].grupo);
         printf("Ingresa la calificacion del alumno %d\n", (i + 1));
-        scanf("%f",&alumnos[i].calificacion);
+        scanf("%f", &alumnos[i].calificacion);
     }
+}
+
+void imprimir_reporte()
+{
+    //creación del archivo
+    FILE *archivo;
+    archivo = fopen("alumnos.txt", "w");
+
+    if (archivo == NULL)
+    {
+        fprintf(stderr, "\n No es posible crear el archivo de alumnos....");
+        exit(1);
+    }
+
+    //escribimos en el archivo
+    int i;
+    for (i = 0; i < CANTIDAD; i++)
+    {
+        fwrite(&alumnos[i], sizeof(struct info_alumnos), 1, archivo);
+
+        if (feof(archivo))
+        {
+            printf("Error al escribir en el archivo \n");
+            return;
+        }
+        printf("Archivo creado correctamente... \n");
+    }
+    fclose(archivo);
 }
