@@ -132,9 +132,11 @@ void buscar_alumno()
         {
             printf("Nombre encontrado\n\n");
             mostrar_informacion(nombre_buscar, cantidad_buscar);
-            return;
         }
-        printf("Nombre no encontrado...\n\n");
+        else
+        {
+            printf("Nombre no encontrado...\n\n");
+        }
     }
 }
 
@@ -169,22 +171,19 @@ void imprimir_reporte()
 char mostrar_informacion(char nombre[25], int cantidad)
 {
     int i, j;
-    for (i = 0; i < cantidad; i++)
-    {
 
-        for (j = 0; j < CANTIDAD; j++)
+    for (j = 0; j < CANTIDAD; j++)
+    {
+        if (!strcmp(nombre, alumnos[j].nombre))
         {
-            if (!strcmp(nombre, alumnos[j].nombre))
-            {
-                printf("Matricula: %s\n", alumnos[j].matricula);
-                printf("Nombre: %s\n", alumnos[j].nombre);
-                printf("Apellido Paterno: %s\n", alumnos[j].apellido_paterno);
-                printf("Apellido Materno: %s\n", alumnos[j].apellido_materno);
-                printf("Edad: %d\n", alumnos[j].edad);
-                printf("Carrera: %s\n", alumnos[j].carrera);
-                printf("Grupo: %s\n", alumnos[j].grupo);
-                printf("Calificacion %f\n\n", alumnos[j].calificacion);
-            }
+            printf("Matricula: %s\n", alumnos[j].matricula);
+            printf("Nombre: %s\n", alumnos[j].nombre);
+            printf("Apellido Paterno: %s\n", alumnos[j].apellido_paterno);
+            printf("Apellido Materno: %s\n", alumnos[j].apellido_materno);
+            printf("Edad: %d\n", alumnos[j].edad);
+            printf("Carrera: %s\n", alumnos[j].carrera);
+            printf("Grupo: %s\n", alumnos[j].grupo);
+            printf("Calificacion %f\n\n", alumnos[j].calificacion);
         }
     }
 }
