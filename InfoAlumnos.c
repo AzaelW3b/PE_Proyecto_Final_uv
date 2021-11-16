@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 #define CANTIDAD 2
 
 struct info_alumnos
@@ -19,6 +20,7 @@ struct info_alumnos
 struct info_alumnos alumnos[CANTIDAD] = {};
 bool MostrarMenu(bool agregar_alumnos);
 void alta_alumnos();
+void buscar_alumno();
 void imprimir_reporte();
 int main(int argc, char const *argv[])
 {
@@ -46,7 +48,7 @@ bool MostrarMenu(bool mostrar_menu)
             alta_alumnos();
             break;
         case 2:
-
+            buscar_alumno();
             break;
 
         case 3:
@@ -99,6 +101,39 @@ void alta_alumnos()
         scanf(" %[^\n]", alumnos[i].grupo);
         printf("Ingresa la calificacion del alumno %d\n", (i + 1));
         scanf("%f", &alumnos[i].calificacion);
+    }
+}
+
+void buscar_alumno()
+{
+    int i, j;
+    char nombre_buscar[25];
+    int cantidad_buscar;
+    int bandera = 0; //nombre no encontrado
+
+    printf("Ingresa la cantidad de alumnos a buscar\n");
+    scanf("%d", &cantidad_buscar);
+
+    for (i = 0; i < cantidad_buscar; i++)
+    {
+        printf("Ingresa el nombre del alumno a buscar\n");
+        scanf("%s", nombre_buscar);
+
+        for (j = 0; j < CANTIDAD; j++)
+        {
+
+            if (!strcmp(nombre_buscar, alumnos[j].nombre))
+            { //nombre encontrado
+                bandera = 1;
+            }
+        }
+
+        if (bandera == 1)
+        {
+            printf("Nombre encontrado\n");
+            return;
+        }
+        printf("Nombre no encontrado...\n");
     }
 }
 
