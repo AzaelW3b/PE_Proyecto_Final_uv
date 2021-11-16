@@ -22,7 +22,7 @@ bool MostrarMenu(bool agregar_alumnos);
 void alta_alumnos();
 void buscar_alumno();
 void imprimir_reporte();
-char mostrar_informacion(char nombre[25], int cantidad);
+char mostrar_informacion(char nombre[25]);
 
 int main(int argc, char const *argv[])
 {
@@ -131,7 +131,7 @@ void buscar_alumno()
         if (bandera == 1)
         {
             printf("Nombre encontrado\n\n");
-            mostrar_informacion(nombre_buscar, cantidad_buscar);
+            mostrar_informacion(nombre_buscar);
         }
         else
         {
@@ -168,9 +168,9 @@ void imprimir_reporte()
     fclose(archivo);
 }
 
-char mostrar_informacion(char nombre[25], int cantidad)
+char mostrar_informacion(char nombre[25])
 {
-    int i, j;
+    int j;
 
     for (j = 0; j < CANTIDAD; j++)
     {
