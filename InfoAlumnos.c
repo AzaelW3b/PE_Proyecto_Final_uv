@@ -22,6 +22,8 @@ bool MostrarMenu(bool agregar_alumnos);
 void alta_alumnos();
 void buscar_alumno();
 void imprimir_reporte();
+char mostrar_informacion(char nombre[25], int cantidad);
+
 int main(int argc, char const *argv[])
 {
 
@@ -39,7 +41,7 @@ bool MostrarMenu(bool mostrar_menu)
     //mientras mostrar_menu sea verdadero se va a ir mostrando el menu
     while (mostrar_menu)
     {
-        printf("Ingresa una de las siguientes opciones\n1.- Alta Alumnos\n2.- Busqueda alumnos\n3.- Consulta general\n 4.- Modificaciones\n5.- Bajas\n6.- Promedio general\n7.- Imprimir reporte\n8.- Salir\n");
+        printf("Ingresa una de las siguientes opciones\n1.- Alta Alumnos\n2.- Busqueda alumnos\n3.- Consulta general\n4.- Modificaciones\n5.- Bajas\n6.- Promedio general\n7.- Imprimir reporte\n8.- Salir\n");
         scanf("%d", &opciones);
 
         switch (opciones)
@@ -121,19 +123,18 @@ void buscar_alumno()
 
         for (j = 0; j < CANTIDAD; j++)
         {
-
             if (!strcmp(nombre_buscar, alumnos[j].nombre))
             { //nombre encontrado
                 bandera = 1;
             }
         }
-
         if (bandera == 1)
         {
-            printf("Nombre encontrado\n");
+            printf("Nombre encontrado\n\n");
+            mostrar_informacion(nombre_buscar, cantidad_buscar);
             return;
         }
-        printf("Nombre no encontrado...\n");
+        printf("Nombre no encontrado...\n\n");
     }
 }
 
@@ -163,4 +164,27 @@ void imprimir_reporte()
         printf("Archivo creado correctamente... \n");
     }
     fclose(archivo);
+}
+
+char mostrar_informacion(char nombre[25], int cantidad)
+{
+    int i, j;
+    for (i = 0; i < cantidad; i++)
+    {
+
+        for (j = 0; j < CANTIDAD; j++)
+        {
+            if (!strcmp(nombre, alumnos[j].nombre))
+            {
+                printf("Matricula: %s\n", alumnos[j].matricula);
+                printf("Nombre: %s\n", alumnos[j].nombre);
+                printf("Apellido Paterno: %s\n", alumnos[j].apellido_paterno);
+                printf("Apellido Materno: %s\n", alumnos[j].apellido_materno);
+                printf("Edad: %d\n", alumnos[j].edad);
+                printf("Carrera: %s\n", alumnos[j].carrera);
+                printf("Grupo: %s\n", alumnos[j].grupo);
+                printf("Calificacion %f\n\n", alumnos[j].calificacion);
+            }
+        }
+    }
 }
