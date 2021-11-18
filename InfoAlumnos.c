@@ -21,6 +21,7 @@ struct info_alumnos alumnos[CANTIDAD] = {};
 bool MostrarMenu(bool agregar_alumnos);
 void alta_alumnos();
 void buscar_alumno();
+void consulta_general();
 void imprimir_reporte();
 char mostrar_informacion(char nombre[25]);
 
@@ -54,7 +55,7 @@ bool MostrarMenu(bool mostrar_menu)
             break;
 
         case 3:
-
+            consulta_general();
             break;
 
         case 4:
@@ -137,6 +138,35 @@ void buscar_alumno()
         {
             printf("Nombre no encontrado...\n\n");
         }
+    }
+}
+
+void consulta_general()
+{
+    //mostramos todas las altas
+    int i, j;
+    printf("--- Todos los alumnos registrados ---\n");
+    for (i = 0; i < CANTIDAD; i++)
+    {
+        //ordenamos
+        for (j = 0; j < CANTIDAD - 1; j++)
+        {
+            int siguiente_posicion = i + 1;
+
+            if (strcmp(alumnos[j].matricula, alumnos[siguiente_posicion].matricula) > 0)
+            {
+
+            }
+        }
+        // printf("Matricula: %s\n", alumnos[j].matricula);
+        // printf("Nombre: %s\n", alumnos[i].nombre);
+        // printf("Apellido Paterno: %s\n", alumnos[i].apellido_paterno);
+        // printf("Apellido Materno: %s\n", alumnos[i].apellido_materno);
+        // printf("Edad: %d\n", alumnos[i].edad);
+        // printf("Carrera: %s\n", alumnos[i].carrera);
+        // printf("Grupo: %s\n", alumnos[i].grupo);
+        // printf("Calificacion %f\n\n", alumnos[i].calificacion);
+        printf("----------------------------------------------------\n");
     }
 }
 
