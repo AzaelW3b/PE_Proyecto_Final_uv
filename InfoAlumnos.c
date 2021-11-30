@@ -23,7 +23,7 @@ void alta_alumnos();
 void buscar_alumno();
 void consulta_general();
 void imprimir_reporte();
-char mostrar_informacion(char nombre[25]);
+char mostrar_informacion(char matricula[25]);
 
 int main(int argc, char const *argv[])
 {
@@ -110,7 +110,7 @@ void alta_alumnos()
 void buscar_alumno()
 {
     int i, j;
-    char nombre_buscar[25];
+    char matricula_buscar[25];
     int cantidad_buscar;
     int bandera = 0; //nombre no encontrado
 
@@ -119,24 +119,24 @@ void buscar_alumno()
 
     for (i = 0; i < cantidad_buscar; i++)
     {
-        printf("Ingresa el nombre del alumno a buscar\n");
-        scanf("%s", nombre_buscar);
+        printf("Ingresa la matricula del alumno a buscar\n");
+        scanf("%s", matricula_buscar);
 
         for (j = 0; j < CANTIDAD; j++)
         {
-            if (!strcmp(nombre_buscar, alumnos[j].nombre))
+            if (!strcmp(matricula_buscar, alumnos[j].matricula))
             { //nombre encontrado
                 bandera = 1;
             }
         }
         if (bandera == 1)
         {
-            printf("Nombre encontrado\n\n");
-            mostrar_informacion(nombre_buscar);
+            printf("Alumno encontrado:\n\n");
+            mostrar_informacion(matricula_buscar);
         }
         else
         {
-            printf("Nombre no encontrado...\n\n");
+            printf("Alumno no encontrado...\n\n");
         }
     }
 }
@@ -144,28 +144,35 @@ void buscar_alumno()
 void consulta_general()
 {
     //mostramos todas las altas
-    int i, j;
+    int i, j,x;
+    char auxiliar[25];
     printf("--- Todos los alumnos registrados ---\n");
     for (i = 0; i < CANTIDAD; i++)
     {
-        //ordenamos
+        // ordenamos
         for (j = 0; j < CANTIDAD - 1; j++)
         {
             int siguiente_posicion = i + 1;
 
-            if (strcmp(alumnos[j].matricula, alumnos[siguiente_posicion].matricula) > 0)
-            {
-
+            if (strcmp(alumnos[j].matricula, alumnos[siguiente_posicion].matricula) < 0)
+            {   x = j;
+                strcpy(auxiliar, alumnos[j].matricula);
             }
         }
-        // printf("Matricula: %s\n", alumnos[j].matricula);
-        // printf("Nombre: %s\n", alumnos[i].nombre);
-        // printf("Apellido Paterno: %s\n", alumnos[i].apellido_paterno);
-        // printf("Apellido Materno: %s\n", alumnos[i].apellido_materno);
-        // printf("Edad: %d\n", alumnos[i].edad);
-        // printf("Carrera: %s\n", alumnos[i].carrera);
-        // printf("Grupo: %s\n", alumnos[i].grupo);
-        // printf("Calificacion %f\n\n", alumnos[i].calificacion);
+        strcpy(alumnos[x].matricula, alumnos[i].matricula);
+        strcpy(alumnos[i].matricula, auxiliar);
+       
+    }
+    int l;
+    for(l = 0; l < CANTIDAD; l++){
+         printf("Matricula: %s\n", alumnos[j].matricula);
+        printf("Nombre: %s\n", alumnos[i].nombre);
+        printf("Apellido Paterno: %s\n", alumnos[i].apellido_paterno);
+        printf("Apellido Materno: %s\n", alumnos[i].apellido_materno);
+        printf("Edad: %d\n", alumnos[i].edad);
+        printf("Carrera: %s\n", alumnos[i].carrera);
+        printf("Grupo: %s\n", alumnos[i].grupo);
+        printf("Calificacion %f\n\n", alumnos[i].calificacion);
         printf("----------------------------------------------------\n");
     }
 }
@@ -198,13 +205,13 @@ void imprimir_reporte()
     fclose(archivo);
 }
 
-char mostrar_informacion(char nombre[25])
+char mostrar_informacion(char matricula[25])
 {
     int j;
 
     for (j = 0; j < CANTIDAD; j++)
     {
-        if (!strcmp(nombre, alumnos[j].nombre))
+        if (!strcmp(matricula, alumnos[j].matricula))
         {
             printf("Matricula: %s\n", alumnos[j].matricula);
             printf("Nombre: %s\n", alumnos[j].nombre);
